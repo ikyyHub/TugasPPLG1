@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Guru</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #e3f2fd; }
+        .card { background: white; padding: 20px; border-radius: 10px; border-left: 5px solid #007bff; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Selamat Datang, Pak/Bu <span id="namaGuru"></span>!</h1>
+        <p>Anda login sebagai: <b>GURU</b></p>
+        <button onclick="logout()">Keluar</button>
+    </div>
+
+    <script>
+        const data = JSON.parse(localStorage.getItem("userAktif"));
+        if(!data || data.role !== "guru") { window.location.href = "login.html"; }
+        document.getElementById("namaGuru").innerText = data.nama;
+
+        function logout() {
+            localStorage.removeItem("userAktif");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
