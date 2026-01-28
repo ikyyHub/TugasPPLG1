@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PPLG1</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px; }
+        h2 { text-align: center; color: #333; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #007bff; border: none; color: white; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .error { color: red; font-size: 12px; text-align: center; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>LOGIN PPLG1</h2>
+        <input type="text" id="user" placeholder="Username">
+        <input type="password" id="pass" placeholder="Password">
+        <button onclick="prosesLogin()">Masuk</button>
+        <p id="pesan" class="error"></p>
+    </div>
+
+    <script>
+        // Simulasi Database PPLG1 di dalam localStorage
+        const db_pplg1 = [
+            {id: 1, user: "Heri", pass: "1234", nama: "Heri, S.Pd", role: "guru"},
+            {id: 2, user: "Rizki", pass: "1234", nama: "Rizki Juliansyah", role: "siswa"}
+        ];
+
+        function prosesLogin() {
+            const u = document.getElementById("user").value;
+            const p = document.getElementById("pass").value;
+            const pesan = document.getElementById("pesan");
+
+            // Cari user di database
+            const akun = db_pplg1.find(a => a.user === u && a.pass === p);
+
+            if (akun) {
+                // Simpan data login sementara agar bisa dipanggil di halaman lain
+                localStorage.setItem("userAktif", JSON.stringify(akun));
+                
+                if (akun.role === "guru") {
+                    window.location.href = "halaman_guru.html";
+                } else {
+                    window.location.href = "halaman_siswa.html";
+                }
+            } else {
+                pesan.innerHTML = "Username atau Password salah!";
+            }
+        }
+    </script>
+</body>
+</html>
+
