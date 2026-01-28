@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Siswa</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f1f8e9; }
-        .card { background: white; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50; }
+        body { font-family: sans-serif; padding: 20px; background: #f1f8e9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 30px; border-radius: 15px; border-left: 8px solid #4caf50; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 320px; text-align: center; }
+        h1 { color: #2e7d32; font-size: 20px; }
+        p { color: #555; margin-bottom: 20px; }
+        button { padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #c0392b; }
     </style>
 </head>
 <body>
@@ -16,8 +22,13 @@
 
     <script>
         const data = JSON.parse(localStorage.getItem("userAktif"));
-        if(!data || data.role !== "siswa") { window.location.href = "login.html"; }
-        document.getElementById("namaSiswa").innerText = data.nama;
+        
+        // Proteksi: Jika bukan siswa atau belum login, balik ke login.html
+        if(!data || data.role !== "siswa") { 
+            window.location.href = "login.html"; 
+        } else {
+            document.getElementById("namaSiswa").innerText = data.nama;
+        }
 
         function logout() {
             localStorage.removeItem("userAktif");
